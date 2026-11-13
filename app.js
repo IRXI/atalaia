@@ -8,10 +8,12 @@ import {
   nextLine,
   pickId,
   videoUrl,
+  visibleEntries,
 } from "./logic.js";
 
 const LAST_KEY = "atalaia:lastId";
 const STREAK_KEY = "atalaia:streak";
+const HIDDEN_KEY = "atalaia:hidden";
 const DB_NAME = "atalaia";
 const STORE = "videos";
 
@@ -26,6 +28,8 @@ const btnPassar = document.querySelector("#btn-passar");
 const btnRetirar = document.querySelector("#btn-retirar");
 const inputFile = document.querySelector("#input-file");
 const inputDir = document.querySelector("#input-dir");
+const lista = document.querySelector("#lista");
+const listaRows = document.querySelector("#lista-rows");
 
 let entries = [];
 let current = null;
@@ -39,6 +43,22 @@ function readStreak() {
   } catch {
     return null;
   }
+}
+
+function readHidden() {
+  try {
+    const data = JSON.parse(localStorage.getItem(HIDDEN_KEY) || "[]");
+    return Array.isArray(data) ? data.filter((id) => typeof id === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
+function hideClip(id) {
+  const hidden = readHidden();
+  if (hidden.includes(id)) return;
+  hidden.push(id);
+  localStorage.setItem(HIDDEN_KEY, JSON.stringify(hidden));
 }
 
 function openDb() {
@@ -149,7 +169,7 @@ async function loadLibrary() {
       kind: "up",
       blob: item.blob,
     }));
-  entries = [...folderEntries, ...uploadEntries];
+  entries = visibleEntries([...folderEntries, ...uploadEntries], readHidden());
   empty.hidden = entries.length > 0;
   if (!entries.length) {
     current = null;
@@ -258,12 +278,70 @@ btnOuvir.addEventListener("click", async () => {
   }
 });
 
+async function removeUpload(id) {
+  const db = await openDb();
+  await idbDelete(db, id);
+}
+
+function paintList() {
+  listaRows.replaceChildren();
+  if (!entries.length) {
+    const note = document.createElement("li");
+    note.className = "lista-empty";
+    note.textContent = "Nenhum vídeo na rotação.";
+    listaRows.append(note);
+    return;
+  }
+  for (const entry of entries) {
+    const row = document.createElement("li");
+    row.className = "lista-row";
+    const name = document.createElement("span");
+    name.className = "lista-name";
+    name.textContent = entry.name;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "metal quiet";
+    button.dataset.id = entry.id;
+    button.textContent = "Tirar";
+    row.append(name, button);
+    listaRows.append(row);
+  }
+}
+
+async function tirar(id) {
+  const entry = entries.find((item) => item.id === id);
+  if (!entry) return;
+  if (entry.kind === "up") await removeUpload(entry.id);
+  else hideClip(entry.id);
+  await loadLibrary();
+  paintList();
+}
+
+function voltar() {
+  const stillThere = current && entries.some((entry) => entry.id === current.id);
+  lista.hidden = true;
+  if (stillThere || !entries.length) return;
+  playRandom(true);
+}
+
 btnRetirar.addEventListener("click", async () => {
   if (!current || current.kind !== "up") return;
-  const db = await openDb();
-  await idbDelete(db, current.id);
+  await removeUpload(current.id);
   await loadLibrary();
   if (entries.length) playRandom(true);
+});
+
+document.querySelector("#btn-lista").addEventListener("click", () => {
+  paintList();
+  lista.hidden = false;
+});
+
+document.querySelector("#btn-voltar").addEventListener("click", voltar);
+
+listaRows.addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-id]");
+  if (!button) return;
+  tirar(button.dataset.id);
 });
 
 function bindPicker(button, input) {

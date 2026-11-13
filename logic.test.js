@@ -10,6 +10,7 @@ import {
   nextStreak,
   pickId,
   videoUrl,
+  visibleEntries,
 } from "./logic.js";
 
 test("videoUrl keeps spaces and parentheses in the filename", () => {
@@ -36,6 +37,14 @@ test("pickId avoids the last video when there is more than one", () => {
   assert.equal(pickId(ids, "lib:a.mp4", () => 0), "lib:b.mp4");
   assert.equal(pickId(ids, "lib:a.mp4", () => 0.999), "lib:c.mp4");
   assert.notEqual(pickId(ids, "lib:b.mp4", () => 0), "lib:b.mp4");
+});
+
+test("visibleEntries keeps a library clip out of the rotation", () => {
+  const clips = [{ id: "lib:a.mp4" }, { id: "up:b" }, { id: "lib:c.mp4" }];
+  assert.deepEqual(
+    visibleEntries(clips, ["lib:a.mp4"]).map((clip) => clip.id),
+    ["up:b", "lib:c.mp4"],
+  );
 });
 
 test("nextStreak starts at one day and does not climb on the same day", () => {

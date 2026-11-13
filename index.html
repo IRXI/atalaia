@@ -76,6 +76,15 @@
   <div class="watch-actions">
     <button type="button" id="btn-ouvir" class="ouvir" hidden>Ouvir</button>
   </div>
+  <button type="button" id="btn-lista" class="lista-open">Lista</button>
+
+  <section id="lista" class="lista" hidden>
+    <div class="lista-bar">
+      <p class="kicker">biblioteca</p>
+      <button type="button" id="btn-voltar" class="metal">Voltar</button>
+    </div>
+    <ul id="lista-rows" class="lista-rows"></ul>
+  </section>
 
   <input id="input-file" type="file" accept="video/mp4,video/webm,video/quicktime,video/*" multiple hidden>
   <input id="input-dir" type="file" accept="video/*" webkitdirectory directory multiple hidden>

@@ -26,6 +26,11 @@ export function formatStreak(n) {
   return n === 1 ? "1 dia" : `${n} dias`;
 }
 
+export function visibleEntries(entries, hiddenIds) {
+  const hidden = new Set(hiddenIds || []);
+  return entries.filter((entry) => !hidden.has(entry.id));
+}
+
 export function pickId(ids, lastId, random = Math.random) {
   if (!ids.length) return null;
   const pool = ids.length > 1 ? ids.filter((id) => id !== lastId) : ids;
