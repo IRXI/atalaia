@@ -12,11 +12,11 @@ import {
 test("videoUrl keeps spaces and parentheses in the filename", () => {
   assert.equal(
     videoUrl("3 Facebook (1).mp4"),
-    "/biblioteca/3%20Facebook%20(1).mp4",
+    "biblioteca/3%20Facebook%20(1).mp4",
   );
   assert.equal(
     videoUrl("aula claude.mp4"),
-    "/biblioteca/aula%20claude.mp4",
+    "biblioteca/aula%20claude.mp4",
   );
 });
 

@@ -84,7 +84,7 @@ function showAviso(text) {
 
 async function folderNames() {
   try {
-    const response = await fetch("/manifest.json", { cache: "no-store" });
+    const response = await fetch("manifest.json", { cache: "no-store" });
     if (!response.ok) return [];
     const data = await response.json();
     return Array.isArray(data.videos) ? data.videos.filter((name) => typeof name === "string") : [];

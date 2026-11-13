@@ -48,7 +48,7 @@ export function dailyItem(list, dateStr) {
 }
 
 export function videoUrl(name) {
-  return `/biblioteca/${encodeURIComponent(name)}`;
+  return `biblioteca/${encodeURIComponent(name)}`;
 }
 
 export const LINHAS = [
