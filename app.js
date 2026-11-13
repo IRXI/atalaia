@@ -157,7 +157,6 @@ async function loadLibrary() {
     player.removeAttribute("src");
     player.hidden = true;
     btnOuvir.hidden = true;
-    btnPassar.hidden = true;
     btnRetirar.hidden = true;
   } else {
     player.hidden = false;
@@ -186,7 +185,6 @@ function playEntry(entry, keepSound) {
   player.dataset.token = String(token);
   const started = player.play();
   btnOuvir.hidden = false;
-  btnPassar.hidden = false;
   if (started) started.catch(() => {});
 }
 
