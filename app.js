@@ -5,6 +5,7 @@ import {
   formatStreak,
   localDate,
   nextStreak,
+  nextLine,
   pickId,
   videoUrl,
 } from "./logic.js";
@@ -21,6 +22,7 @@ const linha = document.querySelector("#linha");
 const sequencia = document.querySelector("#sequencia");
 const missao = document.querySelector("#missao");
 const btnOuvir = document.querySelector("#btn-ouvir");
+const btnPassar = document.querySelector("#btn-passar");
 const btnRetirar = document.querySelector("#btn-retirar");
 const inputFile = document.querySelector("#input-file");
 const inputDir = document.querySelector("#input-dir");
@@ -155,13 +157,14 @@ async function loadLibrary() {
     player.removeAttribute("src");
     player.hidden = true;
     btnOuvir.hidden = true;
+    btnPassar.hidden = true;
     btnRetirar.hidden = true;
   } else {
     player.hidden = false;
   }
 }
 
-function playEntry(entry) {
+function playEntry(entry, keepSound) {
   if (!entry) return;
   playToken += 1;
   const token = playToken;
@@ -179,11 +182,25 @@ function playEntry(entry) {
   empty.hidden = true;
   btnRetirar.hidden = entry.kind !== "up";
   localStorage.setItem(LAST_KEY, entry.id);
-  player.muted = true;
+  if (!keepSound) player.muted = true;
   player.dataset.token = String(token);
   const started = player.play();
   btnOuvir.hidden = false;
+  btnPassar.hidden = false;
   if (started) started.catch(() => {});
+}
+
+function passar() {
+  const ids = entries.map((entry) => entry.id).filter((id) => !failed.has(id));
+  const nextId = pickId(ids, current?.id || null);
+  if (!nextId) {
+    showAviso("Não foi possível reproduzir os vídeos.");
+    return;
+  }
+  showAviso("");
+  const keepSound = !player.muted;
+  linha.textContent = nextLine(LINHAS, linha.textContent);
+  playEntry(entries.find((entry) => entry.id === nextId), keepSound);
 }
 
 function playRandom(force) {
@@ -226,6 +243,11 @@ player.addEventListener("click", () => {
   if (!current) return;
   if (player.paused) player.play();
   else player.pause();
+});
+
+btnPassar.addEventListener("click", () => {
+  if (!entries.length) return;
+  passar();
 });
 
 btnOuvir.addEventListener("click", async () => {

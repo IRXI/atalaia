@@ -1,9 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
+  LINHAS,
+  MISSOES,
   dailyItem,
   formatStreak,
   localDate,
+  nextLine,
   nextStreak,
   pickId,
   videoUrl,
@@ -60,6 +63,20 @@ test("nextStreak increments across a month boundary and resets after a gap", () 
 test("formatStreak uses dia or dias", () => {
   assert.equal(formatStreak(1), "1 dia");
   assert.equal(formatStreak(2), "2 dias");
+});
+
+test("nextLine advances with Passar and wraps without repeating", () => {
+  assert.equal(nextLine(["alpha", "beta", "gamma"], "alpha"), "beta");
+  assert.equal(nextLine(["alpha", "beta", "gamma"], "gamma"), "alpha");
+  assert.equal(nextLine(["solo"], "solo"), "solo");
+  assert.notEqual(nextLine(LINHAS, LINHAS[0]), LINHAS[0]);
+});
+
+test("the forge keeps the old lines and adds many more", () => {
+  assert.ok(LINHAS.length >= 36);
+  assert.ok(MISSOES.length >= 36);
+  assert.equal(new Set(LINHAS).size, LINHAS.length);
+  assert.equal(new Set(MISSOES).size, MISSOES.length);
 });
 
 test("dailyItem stays on the same line for the whole date", () => {

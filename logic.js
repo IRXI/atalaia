@@ -47,6 +47,13 @@ export function dailyItem(list, dateStr) {
   return list[dailyIndex(dateStr, list.length)];
 }
 
+export function nextLine(list, current) {
+  if (!list.length) return "";
+  if (list.length === 1) return list[0];
+  const index = list.indexOf(current);
+  return list[(index < 0 ? 0 : index + 1) % list.length];
+}
+
 export function videoUrl(name) {
   return `biblioteca/${encodeURIComponent(name)}`;
 }
@@ -64,6 +71,30 @@ export const LINHAS = [
   "A constância vence o talento parado.",
   "Você não precisa de ânimo. Precisa de um passo.",
   "O aço lembra cada batida.",
+  "Abra os olhos. A atalaia não dorme por você.",
+  "O primeiro movimento já é vitória.",
+  "Levante antes que a dúvida sente.",
+  "Hoje pede presença, não perfeição.",
+  "A guarda se troca. Você continua.",
+  "Um passo honesto vale mais que um plano bonito.",
+  "Não espere o fogo alto. Acenda o pavio.",
+  "O dia não cobra ânimo. Cobra presença.",
+  "Fique de pé. O resto se arruma andando.",
+  "A muralha se ergue pedra por pedra.",
+  "Você já atravessou dias piores.",
+  "Comece pequeno. Termine de pé.",
+  "A manhã não pede discurso. Pede corpo.",
+  "Honre a hora. O resto obedece.",
+  "Cansaço não é ordem de parar.",
+  "A forja aceita quem volta.",
+  "Não peça permissão ao medo.",
+  "O turno é seu. Ocupe.",
+  "Respire e entre no dia.",
+  "A chama cabe na palma. Ainda ilumina.",
+  "Faça o que está na sua frente.",
+  "A constância é uma porta baixa. Atravesse.",
+  "Você não está atrasado. Está acordado.",
+  "Deixe o dia encontrar você em movimento.",
 ];
 
 export const MISSOES = [
@@ -79,4 +110,28 @@ export const MISSOES = [
   "Feche as telas vinte minutos antes de dormir.",
   "Alongue o corpo por três minutos.",
   "Anote a única coisa que não pode ficar para amanhã.",
+  "Levante e abra a janela por um minuto.",
+  "Lave o rosto antes de decidir qualquer coisa.",
+  "Vista-se por completo antes de sentar.",
+  "Encha uma garrafa de água e deixe-a à vista.",
+  "Faça dez flexões, ou dez apoios na parede.",
+  "Caminhe até o fim da rua e volte.",
+  "Nomeie a primeira tarefa e abra só ela.",
+  "Solte os ombros e alongue o pescoço.",
+  "Coma uma fruta ou um pão antes de mais café.",
+  "Feche uma aba que não serve a hoje.",
+  "Escreva a hora em que vai parar de trabalhar.",
+  "Suba um lance de escada sem olhar o celular.",
+  "Guarde três objetos que estão fora do lugar.",
+  "Conte quatro respirações lentas de pé.",
+  "Diga bom dia a alguém, em uma frase.",
+  "Silencie um aplicativo que te chama cedo.",
+  "Fique de pé cinco minutos sem tela.",
+  "Separe agora o que vai almoçar.",
+  "Abra a tarefa adiada e faça só a primeira linha.",
+  "Alongue a lombar antes de voltar à cadeira.",
+  "Diga em voz alta a prioridade única do dia.",
+  "Saia um minuto para o ar livre.",
+  "Anote, à noite, uma coisa que você fez de pé.",
+  "Deixe o sapato ou a roupa de amanhã no lugar.",
 ];

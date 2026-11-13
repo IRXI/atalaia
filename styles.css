@@ -64,7 +64,7 @@ body {
 .plaque,
 .empty,
 .aviso,
-.ouvir {
+.watch-actions {
   position: relative;
   z-index: 5;
 }
@@ -226,10 +226,15 @@ body {
   color: #ffd7c2;
 }
 
-.ouvir {
+.watch-actions {
   position: absolute;
   right: 36px;
   bottom: 118px;
+  display: flex;
+  gap: 8px;
+}
+
+.ouvir {
   appearance: none;
   border: 1px solid var(--ember);
   background: rgba(18, 10, 7, 0.88);
@@ -242,12 +247,15 @@ body {
   cursor: pointer;
 }
 
+.ouvir:hover { border-color: var(--ember-soft); }
+.ouvir:focus-visible { outline: 2px solid var(--ember-soft); outline-offset: 2px; }
+
 @media (max-width: 720px) {
   .bar { padding: 22px 18px 12px; align-items: flex-start; }
   .brand h1 { font-size: 1.25rem; letter-spacing: 0.16em; }
   .plaque { left: 14px; right: 14px; bottom: 14px; }
   .plaque-row { grid-template-columns: 1fr; gap: 8px; }
   .linha { font-size: 1.02rem; }
-  .ouvir { right: 16px; bottom: 168px; }
+  .watch-actions { right: 16px; bottom: 168px; }
   .seal h2 { font-size: 1.6rem; }
 }
