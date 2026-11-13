@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atalaia</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <svg class="circuits" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g fill="none" stroke="#6e8f78" stroke-width="1.2">
+      <path d="M40 48 H220 V140 H360"/>
+      <path d="M40 48 V210 H150"/>
+      <path d="M1160 60 H980 V168 H820"/>
+      <path d="M1160 60 V240 H1040"/>
+      <path d="M80 740 H260 V640 H420"/>
+      <path d="M1120 750 H900 V620 H760"/>
+    </g>
+    <g fill="none" stroke="#e25b2a" stroke-width="1.1" opacity="0.85">
+      <path d="M220 48 V90"/>
+      <path d="M980 60 V110"/>
+      <path d="M260 740 V690"/>
+      <path d="M900 750 V680"/>
+    </g>
+    <g fill="#e8d7c4">
+      <circle cx="220" cy="48" r="3"/>
+      <circle cx="360" cy="140" r="2.5"/>
+      <circle cx="980" cy="60" r="3"/>
+      <circle cx="820" cy="168" r="2.5"/>
+      <circle cx="260" cy="740" r="3"/>
+      <circle cx="420" cy="640" r="2.5"/>
+      <circle cx="900" cy="750" r="3"/>
+      <circle cx="760" cy="620" r="2.5"/>
+    </g>
+  </svg>
+  <div class="corners" aria-hidden="true"></div>
+
+  <header class="bar">
+    <div class="brand">
+      <p class="kicker">vigília</p>
+      <h1>Atalaia</h1>
+    </div>
+    <div class="bar-actions">
+      <button type="button" id="btn-pasta" class="metal">Escolher pasta</button>
+      <button type="button" id="btn-add" class="metal ember">Acrescentar</button>
+      <button type="button" id="btn-retirar" class="metal quiet" hidden>Retirar</button>
+    </div>
+  </header>
+
+  <video id="player" playsinline loop preload="auto"></video>
+
+  <section id="empty" class="empty" hidden>
+    <div class="seal">
+      <p class="kicker">biblioteca</p>
+      <h2>A forja está vazia</h2>
+      <p>Nenhum vídeo por aqui. Escolha a pasta no seu computador ou acrescente o primeiro arquivo.</p>
+      <div class="empty-actions">
+        <button type="button" id="btn-pasta-empty" class="metal ember">Escolher pasta</button>
+        <button type="button" id="btn-add-empty" class="metal">Acrescentar vídeo</button>
+      </div>
+    </div>
+  </section>
+
+  <p id="aviso" class="aviso" hidden></p>
+
+  <footer class="plaque">
+    <p id="linha" class="linha"></p>
+    <div class="plaque-row">
+      <p><span class="k">Sequência</span> <strong id="sequencia"></strong></p>
+      <p><span class="k">Missão do dia</span> <span id="missao"></span></p>
+    </div>
+  </footer>
+
+  <button type="button" id="btn-ouvir" class="ouvir" hidden>Ouvir</button>
+
+  <input id="input-file" type="file" accept="video/mp4,video/webm,video/quicktime,video/*" multiple hidden>
+  <input id="input-dir" type="file" accept="video/*" webkitdirectory directory multiple hidden>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
