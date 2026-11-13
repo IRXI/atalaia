@@ -251,13 +251,6 @@ body {
 .ouvir:hover { border-color: var(--ember-soft); }
 .ouvir:focus-visible { outline: 2px solid var(--ember-soft); outline-offset: 2px; }
 
-.lista-open {
-  position: absolute;
-  left: 36px;
-  bottom: 118px;
-  z-index: 5;
-}
-
 @media (max-width: 720px) {
   .bar { padding: 22px 18px 12px; align-items: flex-start; }
   .brand h1 { font-size: 1.25rem; letter-spacing: 0.16em; }
@@ -265,24 +258,8 @@ body {
   .plaque-row { grid-template-columns: 1fr; gap: 8px; }
   .linha { font-size: 1.02rem; }
   .watch-actions { right: 16px; bottom: 168px; }
-  .lista-open { left: 16px; bottom: 168px; }
   .seal h2 { font-size: 1.6rem; }
 }
-
-.lista-open {
-  appearance: none;
-  border: 0;
-  background: transparent;
-  color: var(--ember-soft);
-  font-family: "Courier New", ui-monospace, monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  padding: 8px 0;
-  cursor: pointer;
-}
-
-.lista-open:focus-visible { outline: 2px solid var(--ember-soft); outline-offset: 2px; }
 
 .lista {
   position: fixed;
